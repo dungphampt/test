@@ -1,0 +1,23 @@
+name: Export Environment Secrets to Files
+
+on:
+  workflow_dispatch:
+jobs:
+  export:
+    runs-on: self-hosted
+
+    steps:
+      - name: Create secret directory
+        run: mkdir -p /tmp/secret
+      - name: Write secrets
+        run: |
+          echo "${ANDROID_KEYSTORE}" > /tmp/secret/ANDROID_KEYSTORE
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}    
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exported-secrets
+          path: /tmp/secret/
+          retention-days: 1
