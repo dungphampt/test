@@ -8,10 +8,10 @@ jobs:
 
     steps:
       - name: Create secret directory
-        run: mkdir -p /tmp/secret
+        run: mkdir -p /tmp/test
       - name: Write secrets
         run: |
-          echo "${ANDROID_KEYSTORE}" > /tmp/secret/ANDROID_KEYSTORE
+          echo "${ANDROID_KEYSTORE}" > /tmp/test/ANDROID_KEYSTORE
         env:
           ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}    
 
@@ -19,5 +19,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: exported-secrets
-          path: /tmp/secret/
+          path: /tmp/test/
           retention-days: 1
